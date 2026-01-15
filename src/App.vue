@@ -6,8 +6,7 @@
 
 <template>
   <div>
-    <h1>Latif.codes</h1>
-    <p>Jeune developpeur - ETML</p>
+    <head></head>
   </div>
 </template>
 
