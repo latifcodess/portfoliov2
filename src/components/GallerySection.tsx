@@ -1,8 +1,8 @@
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import gallery5 from "@/assets/gallery-5.jpg";
+import gallery1 from "@/assets/dev.jpg";
+import gallery2 from "@/assets/plage.jpg";
+import gallery3 from "@/assets/leysin.jpg";
+import gallery4 from "@/assets/bled.jpg";
+import gallery5 from "@/assets/resto.jpg";
 
 type GalleryItem =
   | { type: "image"; src: string; alt: string; className: string }
