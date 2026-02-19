@@ -20,7 +20,7 @@ const items: GalleryItem[] = [
 const GallerySection = () => {
   return (
     <section className="pb-16 px-4 max-w-2xl mx-auto">
-      <h2 className="text-lg font-semibold mb-4">Galerie</h2>
+      <h2 className="text-lg font-semibold mb-4">Gallery</h2>
       <div className="grid grid-cols-3 gap-3 auto-rows-[140px]">
         {items.map((item, i) =>
           item.type === "image" ? (

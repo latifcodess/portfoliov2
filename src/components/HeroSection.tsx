@@ -10,16 +10,16 @@ const HeroSection = () => {
             Hey, i'm Latif 👋
           </h1>
           <p className="text-muted-foreground font-medium">
-            Full Stack Developper
+            Full Stack Developer
           </p>
         </div>
       </div>
       <p className="text-muted-foreground leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-        Je suis un développeur passionné basé en France 🇫🇷, qui adore créer des expériences web modernes et élégantes. 
-        Actuellement, je me spécialise dans le développement{" "}
-        <a href="#" className="text-primary underline underline-offset-4 hover:opacity-80 transition-opacity">React</a> et{" "}
-        <a href="#" className="text-primary underline underline-offset-4 hover:opacity-80 transition-opacity">TypeScript</a>, 
-        toujours à la recherche de nouveaux défis techniques.
+        I'm a passionate developer based in Switzerland 🇨🇭, who loves creating modern and fancy web experiences. 
+        Actually i'm specialising in{" "}
+        <a href="https://adonisjs.com/" className="text-primary underline underline-offset-4 hover:opacity-80 transition-opacity">AdonisJs</a> and{" "}
+        <a href="https://vuejs.org/" className="text-primary underline underline-offset-4 hover:opacity-80 transition-opacity">Vue.js</a> development, 
+        always searching for new challenges and techs.
       </p>
     </section>
   );
