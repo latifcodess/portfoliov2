@@ -19,7 +19,7 @@ const Navbar = () => {
   }, [dark]);
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl mx-auto backdrop-blur-xl bg-card/70 rounded-full shadow-md border border-border/50 px-4 py-2 flex items-center justify-between">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-2xl backdrop-blur-xl bg-card/70 rounded-full shadow-md border border-border/50 px-4 py-2 flex items-center justify-between">
       <a href="#hero">
         <img src={avatar} alt="Avatar" className="w-8 h-8 rounded-full" />
       </a>
