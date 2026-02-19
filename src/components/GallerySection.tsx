@@ -13,6 +13,7 @@ const items: GalleryItem[] = [
   { type: "image", src: gallery2, alt: "Cerisiers en fleur", className: "" },
   { type: "image", src: gallery3, alt: "Lac en montagne", className: "row-span-2" },
   { type: "image", src: gallery4, alt: "Skyline", className: "" },
+  { type: "image", src: gallery5, alt: "Coffee shop", className: "" },
   { type: "quote", text: "Créer un produit que les gens recommanderont à leurs amis.", className: "" },
 ];
 
