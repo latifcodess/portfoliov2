@@ -7,10 +7,10 @@ const HeroSection = () => {
         <img src={avatar} alt="Avatar" className="w-16 h-16 rounded-full border-2 border-border" />
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
-            Salut, je suis Alex 👋
+            Hey, i'm Latif 👋
           </h1>
           <p className="text-muted-foreground font-medium">
-            Développeur Full Stack
+            Full Stack Developper
           </p>
         </div>
       </div>
