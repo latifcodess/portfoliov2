@@ -4,6 +4,7 @@ import GallerySection from "@/components/GallerySection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
+import DiscordSection from "@/components/DiscordSection";
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
         <GallerySection />
         <ExperienceSection />
         <ProjectsSection />
+        <DiscordSection />
         <ContactSection />
       </main>
       <footer className="text-center py-8 text-xs text-muted-foreground">
