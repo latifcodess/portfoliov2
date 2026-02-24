@@ -41,23 +41,32 @@ const ProjectsSection = () => {
   const TARGET_TOPIC = "portfolio"; 
 
   useEffect(() => {
-    const fetchGithubRepos = async () => {
+const fetchGithubRepos = async () => {
       try {
-        // On cherche les repos de l'utilisateur avec le topic spécifique
         const response = await fetch(
           `https://api.github.com/search/repositories?q=user:${GITHUB_USERNAME}+topic:${TARGET_TOPIC}&sort=updated`
         );
         const data = await response.json();
         
-        // On reformate les données GitHub pour qu'elles collent à ton design
-        const formattedRepos = (data.items || []).map(repo => ({
-          title: repo.name,
-          description: repo.description || "No description provided",
-          tags: [repo.language].filter(Boolean).slice(0, 3), // On prend le langage + topics
-          link: repo.html_url,
-        }));
+        // On récupère les détails des langages pour chaque repo en parallèle
+        const reposWithLanguages = await Promise.all(
+          (data.items || []).map(async (repo) => {
+            const langResponse = await fetch(repo.languages_url);
+            const langData = await langResponse.json();
+            // langData est un objet style { "JavaScript": 1234, "CSS": 500 }
+            // On ne récupère que les noms (les clés de l'objet)
+            const allLanguages = Object.keys(langData);
 
-        setRepos(formattedRepos);
+            return {
+              title: repo.name,
+              description: repo.description || "No description provided",
+              tags: allLanguages, // <--- Ici on a maintenant TOUS les langages
+              link: repo.html_url,
+            };
+          })
+        );
+
+        setRepos(reposWithLanguages);
       } catch (error) {
         console.error("Erreur GitHub API:", error);
       } finally {
@@ -74,7 +83,7 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="pb-16 px-4 max-w-2xl mx-auto">
-      <h2 className="text-lg font-semibold mb-6">Projets GitHub</h2>
+      <h2 className="text-lg font-semibold mb-6">Projects</h2>
       <div className="grid gap-4 sm:grid-cols-2">
         {repos.map((project, i) => (
           <a
