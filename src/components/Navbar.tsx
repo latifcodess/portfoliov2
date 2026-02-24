@@ -35,7 +35,7 @@ const Navbar = () => {
         </a>
       ))}
       <a
-        href="https://github.com"
+        href="https://github.com/latifcodess"
         target="_blank"
         rel="noopener noreferrer"
         className="p-2.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors"

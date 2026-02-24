@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
 
 const projects = [
@@ -32,28 +33,69 @@ const projects = [
 ];
 
 const ProjectsSection = () => {
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Remplace par ton pseudo GitHub et ton tag choisi
+  const GITHUB_USERNAME = "latifcodess";
+  const TARGET_TOPIC = "portfolio"; 
+
+  useEffect(() => {
+    const fetchGithubRepos = async () => {
+      try {
+        // On cherche les repos de l'utilisateur avec le topic spécifique
+        const response = await fetch(
+          `https://api.github.com/search/repositories?q=user:${GITHUB_USERNAME}+topic:${TARGET_TOPIC}&sort=updated`
+        );
+        const data = await response.json();
+        
+        // On reformate les données GitHub pour qu'elles collent à ton design
+        const formattedRepos = (data.items || []).map(repo => ({
+          title: repo.name,
+          description: repo.description || "No description provided",
+          tags: [repo.language].filter(Boolean).slice(0, 3), // On prend le langage + topics
+          link: repo.html_url,
+        }));
+
+        setRepos(formattedRepos);
+      } catch (error) {
+        console.error("Erreur GitHub API:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGithubRepos();
+  }, []);
+
+  if (loading) {
+    return <section className="pb-16 px-4 max-w-2xl mx-auto text-center">Chargement...</section>;
+  }
+
   return (
     <section id="projects" className="pb-16 px-4 max-w-2xl mx-auto">
-      <h2 className="text-lg font-semibold mb-6">Projets</h2>
+      <h2 className="text-lg font-semibold mb-6">Projets GitHub</h2>
       <div className="grid gap-4 sm:grid-cols-2">
-        {projects.map((project, i) => (
+        {repos.map((project, i) => (
           <a
             key={i}
             href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group block rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow"
           >
             <div className="flex items-start justify-between mb-2">
-              <h3 className="font-semibold text-sm">{project.title}</h3>
+              <h3 className="font-semibold text-sm capitalize">{project.title.replace(/-/g, ' ')}</h3>
               <ExternalLink className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground"
+                  className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground font-medium"
                 >
                   {tag}
                 </span>

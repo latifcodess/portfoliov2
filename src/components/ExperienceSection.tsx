@@ -1,24 +1,10 @@
 const experiences = [
   {
-    period: "2023 - Présent",
-    role: "Lead Développeur Full Stack",
-    company: "TechCorp",
+    period: "2024 - Présent",
+    role: "Student",
+    company: "ETML",
     description:
-      "Direction technique d'une équipe de 5 développeurs. Développement d'applications web performantes avec React, Node.js et PostgreSQL.",
-  },
-  {
-    period: "2021 - 2023",
-    role: "Développeur Frontend",
-    company: "WebAgency",
-    description:
-      "Création d'interfaces utilisateur modernes et responsive. Mise en place de design systems et optimisation des performances.",
-  },
-  {
-    period: "2020 - 2021",
-    role: "Développeur Junior",
-    company: "StartupLab",
-    description:
-      "Développement de features front et back sur des projets variés. Première expérience avec les architectures microservices.",
+      "Studying",
   },
 ];
 
