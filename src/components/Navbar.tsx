@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import avatar from "@/assets/avatar.png";
 
 const navItems = [
-  { icon: Home, label: "Accueil", href: "#hero" },
-  { icon: Briefcase, label: "Expérience", href: "#experience" },
-  { icon: FolderOpen, label: "Projets", href: "#projects" },
+  { icon: Home, label: "Home", href: "#hero" },
+  { icon: Briefcase, label: "Experience", href: "#experience" },
+  { icon: FolderOpen, label: "Projects", href: "#projects" },
   { icon: Link, label: "Contact", href: "#contact" },
 ];
 
@@ -46,7 +46,7 @@ const Navbar = () => {
       <button
         onClick={() => setDark(!dark)}
         className="p-2.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors"
-        title={dark ? "Mode clair" : "Mode sombre"}
+        title={dark ? "Light mode" : "Dark mode"}
       >
         {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
       </button>

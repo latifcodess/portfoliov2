@@ -9,9 +9,9 @@ type GalleryItem =
   | { type: "quote"; text: string; className: string };
 
 const items: GalleryItem[] = [
-  { type: "image", src: gallery1, alt: "Mon setup", className: "row-span-2" },
-  { type: "image", src: gallery2, alt: "Cerisiers en fleur", className: "" },
-  { type: "image", src: gallery3, alt: "Lac en montagne", className: "row-span-2" },
+  { type: "image", src: gallery1, alt: "My setup", className: "row-span-2" },
+  { type: "image", src: gallery2, alt: "Cherry blossoms", className: "" },
+  { type: "image", src: gallery3, alt: "Mountain lake", className: "row-span-2" },
   { type: "image", src: gallery4, alt: "Skyline", className: "" },
   { type: "image", src: gallery5, alt: "Coffee shop", className: "" },
   { type: "quote", text: "texte", className: "col-span-2" },

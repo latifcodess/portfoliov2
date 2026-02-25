@@ -36,7 +36,7 @@ const ProjectsSection = () => {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Remplace par ton pseudo GitHub et ton tag choisi
+  // GitHub username and target topic
   const GITHUB_USERNAME = "latifcodess";
   const TARGET_TOPIC = "portfolio"; 
 
@@ -48,19 +48,19 @@ const fetchGithubRepos = async () => {
         );
         const data = await response.json();
         
-        // On récupère les détails des langages pour chaque repo en parallèle
+        // Fetch language details for each repo in parallel
         const reposWithLanguages = await Promise.all(
           (data.items || []).map(async (repo) => {
             const langResponse = await fetch(repo.languages_url);
             const langData = await langResponse.json();
-            // langData est un objet style { "JavaScript": 1234, "CSS": 500 }
-            // On ne récupère que les noms (les clés de l'objet)
+            // langData is an object like { "JavaScript": 1234, "CSS": 500 }
+            // We only keep the names (object keys)
             const allLanguages = Object.keys(langData);
 
             return {
               title: repo.name,
               description: repo.description || "No description provided",
-              tags: allLanguages, // <--- Ici on a maintenant TOUS les langages
+              tags: allLanguages, // All detected languages
               link: repo.html_url,
             };
           })
@@ -68,7 +68,7 @@ const fetchGithubRepos = async () => {
 
         setRepos(reposWithLanguages);
       } catch (error) {
-        console.error("Erreur GitHub API:", error);
+        console.error("GitHub API error:", error);
       } finally {
         setLoading(false);
       }
@@ -78,7 +78,7 @@ const fetchGithubRepos = async () => {
   }, []);
 
   if (loading) {
-    return <section className="pb-16 px-4 max-w-2xl mx-auto text-center">Chargement...</section>;
+    return <section className="pb-16 px-4 max-w-2xl mx-auto text-center">Loading...</section>;
   }
 
   return (
