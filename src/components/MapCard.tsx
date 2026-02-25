@@ -8,7 +8,7 @@ const MapCard = () => {
         <iframe
           title="Lausanne, Switzerland"
           src="https://www.openstreetmap.org/export/embed.html?bbox=6.5500%2C46.5000%2C6.7000%2C46.5700&layer=mapnik"
-          className="w-full h-full border-0 grayscale dark:invert dark:hue-rotate-180"
+          className="w-full h-full border-0 grayscale dark:invert dark:hue-rotate-180 pointer-events-none"
           loading="lazy"
         />
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 to-transparent" />
