@@ -1,69 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { MessageCircle } from "lucide-react";
 
+const DISCORD_ID = "584393278812848151";
+
 const DiscordSection = () => {
   const [presence, setPresence] = useState(null);
-  const DISCORD_ID = "584393278812848151";
 
   useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const response = await fetch(
-          `https://api.lanyard.rest/v1/users/${DISCORD_ID}`,
+    const socket = new WebSocket("wss://api.lanyard.rest/socket");
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.op === 1) {
+        socket.send(
+          JSON.stringify({
+            op: 2,
+            d: { subscribe_to_id: DISCORD_ID },
+          }),
         );
-        const { data } = await response.json();
-        setPresence(data);
-      } catch (err) {
-        console.error("Lanyard error:", err);
+      }
+      if (data.op === 0) {
+        setPresence(data.d);
       }
     };
 
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 30000);
-    return () => clearInterval(interval);
-  }, [DISCORD_ID]);
+    return () => socket.close();
+  }, []);
 
   const user = presence?.discord_user;
-  const clanTag = presence?.discord_user?.primary_guild?.tag;
-  const displayName = user?.global_name || user?.username || "Loading...";
-  const username = user?.username ? `@${user.username}` : "";
-
   const statusMap = {
     online: "bg-green-500",
     idle: "bg-yellow-500",
     dnd: "bg-red-500",
     offline: "bg-gray-500",
   };
-  const statusColor = presence?.discord_status ? statusMap[presence.discord_status] : "bg-gray-500";
+  const statusColor = presence?.discord_status
+    ? statusMap[presence.discord_status]
+    : "bg-gray-500";
 
-  const getActivityText = () => {
-    if (!presence) return "Loading...";
-    if (presence.listening_to_spotify) return `Listening to ${presence.spotify.track}`;
-    
-    // Ignore type 4 (Custom Status) to find the real game/app
-    const realActivity = presence.activities.find((a) => a.type !== 4);
-    if (realActivity) {
-      const name = realActivity.name === "Visual Studio Code" ? "VS Code" : realActivity.name;
-      return `Playing ${name}`;
-    }
-
-    const customStatus = presence.activities.find((a) => a.type === 4);
-    return customStatus?.state || "Currently offline";
-  };
+  // On cherche l'activité principale (Jeu ou VS Code)
+  const activity = presence?.activities?.find((a) => a.type === 0);
 
   return (
-    <section className="pb-16 px-4 max-w-2xl mx-auto font-sans">
+    <section id="discord" className="pb-16 px-4 max-w-2xl mx-auto font-sans">
       <h2 className="text-lg font-semibold mb-6">Discord</h2>
-      
-      {/* Card matching the project cards style */}
+
       <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow cursor-default">
-        
-        {/* Avatar with status indicator */}
+        {/* Avatar avec indicateur de statut */}
         <div className="relative shrink-0">
           {user?.avatar ? (
             <img
               src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`}
-              alt={displayName}
+              alt="Avatar"
               className="w-12 h-12 rounded-full border border-border"
             />
           ) : (
@@ -77,24 +65,60 @@ const DiscordSection = () => {
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2">
             <h3 className="font-semibold text-sm text-foreground leading-tight">
-              {displayName}
+              {user?.global_name || user?.username || "Loading..."}
             </h3>
-
-            {clanTag && (
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-secondary text-secondary-foreground border border-border tracking-wider">
-                {clanTag}
-              </span>
-            )}
-
             <span className="text-xs text-muted-foreground opacity-70">
-              {username}
+              {user?.username ? `@${user.username}` : ""}
             </span>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mt-0.5">
-            <p className="truncate text-xs opacity-90">{getActivityText()}</p>
+          <div className="mt-1">
+            {activity ? (
+              <div className="flex items-center gap-3 mt-2 py-1">
+                {/* Logo plus petit et discret */}
+                <div className="relative shrink-0 w-10 h-10">
+                  {activity.assets?.large_image ? (
+                    <img
+                      src={
+                        activity.assets.large_image.startsWith("mp:external")
+                          ? activity.assets.large_image.replace(
+                              /mp:external\/.*\/https\//,
+                              "https://",
+                            )
+                          : `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`
+                      }
+                      className="w-full h-full object-cover rounded-md border border-border/50"
+                      alt="Activity Icon"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted rounded-md flex items-center justify-center border border-border/50">
+                      <MessageCircle className="w-4 h-4 text-muted-foreground/50" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Texte compact */}
+                <div className="flex flex-col min-w-0">
+                  <p className="text-[12px] font-medium text-foreground truncate leading-none">
+                    {activity.name === "Visual Studio Code" ||
+                    activity.name === "Code"
+                      ? "VS Code"
+                      : activity.name}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground truncate leading-tight mt-0.5">
+                    {activity.details || activity.state || "Active"}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              /* Statut simple si rien ne tourne */
+              <p className="text-[11px] text-muted-foreground mt-1 truncate opacity-80">
+                {presence?.activities.find((a) => a.type === 4)?.state ||
+                  "Currently offline"}
+              </p>
+            )}
           </div>
         </div>
       </div>

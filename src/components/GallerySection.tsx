@@ -14,7 +14,7 @@ const items: GalleryItem[] = [
   { type: "image", src: gallery3, alt: "Mountain lake", className: "row-span-2" },
   { type: "image", src: gallery4, alt: "Skyline", className: "" },
   { type: "image", src: gallery5, alt: "Coffee shop", className: "" },
-  { type: "quote", text: "texte", className: "col-span-2" },
+  { type: "quote", text: "Always try to learn something new every day.", className: "col-span-2" },
 ];
 
 const GallerySection = () => {
