@@ -12,7 +12,7 @@ const ContactSection = () => {
     <section id="contact" className="pb-20 px-4 max-w-2xl mx-auto">
       <h2 className="text-lg font-semibold mb-4">Contact</h2>
       <p className="text-sm text-muted-foreground mb-5">
-        Envie de collaborer ou simplement discuter ? N'hésitez pas à me contacter !
+        Interested in collaborating or just want to chat? Feel free to reach out !
       </p>
       <div className="flex gap-3">
         {links.map((link) => (
