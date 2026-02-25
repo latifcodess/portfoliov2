@@ -25,7 +25,7 @@ const DiscordSection = () => {
 
   const user = presence?.discord_user;
   const clanTag = presence?.discord_user?.primary_guild?.tag;
-  const displayName = user?.global_name || user?.username || "Chargement...";
+  const displayName = user?.global_name || user?.username || "Loading...";
   const username = user?.username ? `@${user.username}` : "";
 
   const statusMap = {
@@ -37,28 +37,28 @@ const DiscordSection = () => {
   const statusColor = presence?.discord_status ? statusMap[presence.discord_status] : "bg-gray-500";
 
   const getActivityText = () => {
-    if (!presence) return "Chargement...";
-    if (presence.listening_to_spotify) return `Écoute ${presence.spotify.track}`;
+    if (!presence) return "Loading...";
+    if (presence.listening_to_spotify) return `Listening to ${presence.spotify.track}`;
     
-    // On ignore le type 4 (Custom Status) pour trouver le vrai jeu/logiciel
+    // Ignore type 4 (Custom Status) to find the real game/app
     const realActivity = presence.activities.find((a) => a.type !== 4);
     if (realActivity) {
       const name = realActivity.name === "Visual Studio Code" ? "VS Code" : realActivity.name;
-      return `Sur ${name}`;
+      return `Playing ${name}`;
     }
 
     const customStatus = presence.activities.find((a) => a.type === 4);
-    return customStatus?.state || "Actuellement inactif";
+    return customStatus?.state || "Currently offline";
   };
 
   return (
     <section className="pb-16 px-4 max-w-2xl mx-auto font-sans">
       <h2 className="text-lg font-semibold mb-6">Discord</h2>
       
-      {/* Modification ici pour matcher exactement le style des projets */}
+      {/* Card matching the project cards style */}
       <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow cursor-default">
         
-        {/* Avatar avec point de statut */}
+        {/* Avatar with status indicator */}
         <div className="relative shrink-0">
           {user?.avatar ? (
             <img
