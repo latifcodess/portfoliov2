@@ -19,7 +19,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <footer className="text-center py-8 text-xs text-muted-foreground">
-        © 2026 Latif Krasniqi. Tous droits réservés.
+        © 2026 Latif Krasniqi. All rights reserved.
       </footer>
     </div>
   );
