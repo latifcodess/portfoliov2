@@ -103,8 +103,8 @@ const DiscordSection = () => {
                 <div className="flex flex-col min-w-0">
                   <p className="text-[12px] font-medium text-foreground truncate leading-none">
                     {activity.name === "Visual Studio Code" ||
-                    activity.name === "Code"
-                      ? "VS Code"
+                    activity.name === "Code" || "Visual Studio Code"
+                      ? "Visual Studio Code"
                       : activity.name}
                   </p>
                   <p className="text-[11px] text-muted-foreground truncate leading-tight mt-0.5">
