@@ -33,7 +33,7 @@ const GallerySection = () => {
               />
             </div>
           ) : (
-            <div key={i} className={`rounded-xl bg-primary flex items-center p-4 ${item.className}`}>
+            <div key={i} className={`rounded-xl bg-primary flex items-center p-4 hover:bg-primary/85 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-default ${item.className}`}>
               <p className="text-primary-foreground font-medium text-sm italic">
                 "{item.text}"
               </p>
