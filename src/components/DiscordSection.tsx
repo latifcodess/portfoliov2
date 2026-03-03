@@ -84,9 +84,9 @@ const DiscordSection = () => {
                       src={
                         activity.assets.large_image.startsWith("mp:external")
                           ? activity.assets.large_image.replace(
-                              /mp:external\/.*\/https\//,
-                              "https://",
-                            )
+                            /mp:external\/.*\/https\//,
+                            "https://",
+                          )
                           : `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`
                       }
                       className="w-full h-full object-cover rounded-md border border-border/50"
@@ -102,8 +102,7 @@ const DiscordSection = () => {
                 {/* Texte compact */}
                 <div className="flex flex-col min-w-0">
                   <p className="text-[12px] font-medium text-foreground truncate leading-none">
-                    {activity.name === "Visual Studio Code" ||
-                    activity.name === "Code" || "Visual Studio Code"
+                    {activity.name === "Visual Studio Code" || activity.name === "Code"
                       ? "Visual Studio Code"
                       : activity.name}
                   </p>
