@@ -70,7 +70,7 @@ const DiscordSection = () => {
     <section id="discord" className="pb-16 px-4 max-w-2xl mx-auto font-sans">
       <h2 className="text-lg font-semibold mb-6">Discord</h2>
 
-      <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow cursor-default">
+      <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5 hover:shadow-md hover:border-primary/30 hover:bg-accent/40 transition-all duration-200 cursor-default">
         {/* Avatar avec indicateur de statut */}
         <div className="relative shrink-0">
           {user?.avatar ? (
