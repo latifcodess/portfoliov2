@@ -91,7 +91,7 @@ const fetchGithubRepos = async () => {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block rounded-xl border border-border bg-card p-5 hover:shadow-md transition-shadow"
+            className="group block rounded-xl border border-border bg-card p-5 hover:shadow-md hover:border-primary/30 hover:bg-accent/40 transition-all duration-200"
           >
             <div className="flex items-start justify-between mb-2">
               <h3 className="font-semibold text-sm capitalize">{project.title.replace(/-/g, ' ')}</h3>
