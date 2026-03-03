@@ -32,8 +32,13 @@ const Navbar = () => {
   });
 
   useEffect(() => {
+    document.documentElement.classList.add("theme-transition");
     document.documentElement.classList.toggle("dark", dark);
     localStorage.setItem("theme", dark ? "dark" : "light");
+    const timeout = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transition");
+    }, 500);
+    return () => clearTimeout(timeout);
   }, [dark]);
 
   return (
