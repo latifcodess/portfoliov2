@@ -41,6 +41,31 @@ const DiscordSection = () => {
   // On cherche l'activité principale (Jeu ou VS Code)
   const activity = presence?.activities?.find((a) => a.type === 0);
 
+  // NOUVEAU : Fonction pour déterminer la bonne URL d'image
+  const getImageUrl = (act) => {
+    if (!act) return null;
+    
+    // 1. Si on a une image Rich Presence (comme VS Code)
+    if (act.assets?.large_image) {
+      if (act.assets.large_image.startsWith("mp:external")) {
+        return act.assets.large_image.replace(
+          /mp:external\/.*\/https\//,
+          "https://"
+        );
+      }
+      return `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
+    }
+    
+    // 2. Si c'est un jeu basique (comme RDR2), on récupère l'icône via l'ID de l'application
+    if (act.application_id) {
+      return `https://dcdn.dstn.to/app-icons/${act.application_id}`;
+    }
+
+    return null;
+  };
+
+  const activityImageUrl = getImageUrl(activity);
+
   return (
     <section id="discord" className="pb-16 px-4 max-w-2xl mx-auto font-sans">
       <h2 className="text-lg font-semibold mb-6">Discord</h2>
@@ -79,16 +104,10 @@ const DiscordSection = () => {
               <div className="flex items-center gap-3 mt-2 py-1">
                 {/* Logo plus petit et discret */}
                 <div className="relative shrink-0 w-10 h-10">
-                  {activity.assets?.large_image ? (
+                  {/* NOUVEAU : On utilise notre image calculée */}
+                  {activityImageUrl ? (
                     <img
-                      src={
-                        activity.assets.large_image.startsWith("mp:external")
-                          ? activity.assets.large_image.replace(
-                            /mp:external\/.*\/https\//,
-                            "https://",
-                          )
-                          : `https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`
-                      }
+                      src={activityImageUrl}
                       className="w-full h-full object-cover rounded-md border border-border/50"
                       alt="Activity Icon"
                     />
