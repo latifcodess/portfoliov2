@@ -1,37 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
 
-const projects = [
-  {
-    title: "TaskFlow",
-    description:
-      "Application de gestion de projets avec tableaux Kanban, collaboration en temps réel et intégrations API.",
-    tags: ["React", "TypeScript", "Supabase"],
-    link: "#",
-  },
-  {
-    title: "DevBlog",
-    description:
-      "Plateforme de blog pour développeurs avec éditeur Markdown, système de commentaires et analytics.",
-    tags: ["Next.js", "MDX", "Tailwind"],
-    link: "#",
-  },
-  {
-    title: "CryptoTrack",
-    description:
-      "Dashboard de suivi de cryptomonnaies avec graphiques temps réel et alertes de prix personnalisées.",
-    tags: ["React", "Chart.js", "WebSocket"],
-    link: "#",
-  },
-  {
-    title: "WeatherApp",
-    description:
-      "Application météo élégante avec géolocalisation, prévisions sur 7 jours et animations dynamiques.",
-    tags: ["React", "OpenWeather API"],
-    link: "#",
-  },
-];
-
 const ProjectsSection = () => {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
